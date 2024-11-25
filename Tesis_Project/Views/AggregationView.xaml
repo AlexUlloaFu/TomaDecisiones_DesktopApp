@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Tesis_Project.Views.AggregationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tesis_Project.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="6*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Selección del Conjunto Básico de Términos Lingüísticos" Foreground="{StaticResource PrimaryTextColor}" FontSize="15" Margin="0,0,0,10"/>
+            <DataGrid ItemsSource="{Binding DominiosLinguisticos}" SelectedItem="{Binding SelectedCBTL}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Nombre" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width="2*" Header="Términos Lingüísticos" Binding="{Binding TerminosLinguisticosFormatted}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+            <Grid  Grid.Row="1" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="6*"></RowDefinition>
+                </Grid.RowDefinitions>
+            <TextBlock Text="Preferencias Unificadas" Foreground="{StaticResource PrimaryTextColor}" FontSize="15" Margin="0,0,0,10"/>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding UnifiedPreferences}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Experto" Binding="{Binding expert.Name}"/>
+                    <DataGridTextColumn Width="*" Header="Criterio" Binding="{Binding criteria.Name}"/>
+                    <DataGridTextColumn Width="*" Header="Alternativa" Binding="{Binding alternative.Name}"/>
+                    <DataGridTemplateColumn Header="Evaluación Original" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsRealPreference}" Value="True">
+                                                    <Setter Property="Content" Value="{Binding RealValue}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsIntervalarPreference}" Value="True">
+                                                    <Setter Property="Content" Value="{Binding IntervalarValue}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsLinguisticPreference}" Value="True">
+                                                    <Setter Property="Content" Value="{Binding SelectedTerminoLinguistico}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="*" Header="Evaluacion Unificada" Binding="{Binding FormattedTuple}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+</UserControl>

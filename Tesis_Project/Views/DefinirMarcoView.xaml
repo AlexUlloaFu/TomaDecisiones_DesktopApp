@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="Tesis_Project.Views.DefinirMarcoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <Grid Margin="5,5,5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Expertos Section -->
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="{StaticResource PrimaryTextColor}" BorderThickness="1" CornerRadius="10" Margin="5" Background="{StaticResource WhiteColor}">
+            <Grid Margin="5">
+                <DockPanel LastChildFill="True" >
+                    <TextBlock  Text="Expertos" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="{DynamicResource PrimaryTextColor}" FontSize="15" FontWeight="DemiBold"  Margin="5,5"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3">
+                        <Button Content="Agregar" Command="{Binding ShowAddExpertCommand}" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Editar" Command="{Binding EditExpertCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Eliminar" Command="{Binding RemoveExpertCommand}" Style="{StaticResource DangerButtonStyle}" />
+                    </StackPanel>
+                </DockPanel>
+                <DataGrid x:Name="ExpertosDataGrid" ItemsSource="{Binding Experts}" SelectedItem="{Binding SelectedExpert, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,35,0,0" Background="{StaticResource LightBackground}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Indice" Binding="{Binding Index}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged}" Width="5*"/>
+                        <!-- Add more columns as needed -->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Criterios Section -->
+        <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource PrimaryTextColor}" BorderThickness="1" CornerRadius="10" Margin="5" Background="{StaticResource WhiteColor}">
+            <Grid Margin="5">
+                <DockPanel LastChildFill="True" >
+                    <TextBlock  Text="Criterios" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource PrimaryTextColor}" FontSize="15" FontWeight="DemiBold" Margin="5,5,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3">
+                        <Button Content="Agregar" Command="{Binding ShowAddCriteriaCommand}" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Editar" Command="{Binding EditCriteriaCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Eliminar" Command="{Binding RemoveCriteriaCommand}" Style="{StaticResource DangerButtonStyle}" />
+                    </StackPanel>
+                </DockPanel>
+                <DataGrid x:Name="CriteriaDataGrid"  ItemsSource="{Binding Criterias}" SelectedItem="{Binding SelectedCriteria, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,35,0,0" Background="{StaticResource LightBackground}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Indice" Binding="{Binding Index}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged}" Width="5*"/>
+                        <!-- Add more columns as needed -->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Alternativas Section -->
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource PrimaryTextColor}" BorderThickness="1" CornerRadius="10" Margin="5" Background="{StaticResource WhiteColor}">
+            <Grid Margin="5">
+                <DockPanel LastChildFill="True" >
+                    <TextBlock  Text="Alternativas" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource PrimaryTextColor}" FontSize="15" FontWeight="DemiBold" Margin="5,5,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3">
+                        <Button Content="Agregar" Command="{Binding ShowAddAlternativeCommand}" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Editar" Command="{Binding EditAlternativeCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Eliminar" Command="{Binding RemoveAlternativeCommand}" Style="{StaticResource DangerButtonStyle}" />
+                    </StackPanel>
+                </DockPanel>
+                <DataGrid x:Name="AlternativeDataGrid" ItemsSource="{Binding Alternatives}" SelectedItem="{Binding SelectedAlternative, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,35,0,0" Background="{StaticResource LightBackground}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Indice" Binding="{Binding Index}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged}" Width="5*"/>
+                        <!-- Add more columns as needed -->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Dominios Section -->
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="{StaticResource PrimaryTextColor}" BorderThickness="1" CornerRadius="10" Margin="5" Background="{StaticResource WhiteColor}">
+            <Grid Margin="5">
+                <DockPanel LastChildFill="True" >
+                    <TextBlock  Text="Dominios" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource PrimaryTextColor}" FontSize="15" FontWeight="DemiBold" Margin="5,5,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3">
+                        <Button Content="Agregar" Command="{Binding ShowAddDomainCommand}" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Editar" Command="{Binding EditDomainCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,5,0" />
+                        <Button Content="Eliminar" Command="{Binding RemoveDomainCommand}" Style="{StaticResource DangerButtonStyle}" />
+                    </StackPanel>
+                </DockPanel>
+                <DataGrid x:Name="DomainDataGrid" ItemsSource="{Binding Domains}" SelectedItem="{Binding SelectedDomain, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,35,0,0" Background="{StaticResource LightBackground}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="No." Binding="{Binding Index}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn IsReadOnly="True" Header="Nombre" Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged}" Width="2*"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Tipo" Binding="{Binding Type}" Width="*"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Términos" Binding="{Binding TerminosLinguisticosFormatted}" Width="2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

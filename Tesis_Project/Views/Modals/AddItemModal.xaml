@@ -1,0 +1,116 @@
+﻿<Window x:Class="Tesis_Project.Views.Modals.AddItemModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        xmlns:core="clr-namespace:Tesis_Project.Core"
+        Title="Adicionar Elemento" MinWidth="600" MinHeight="300" MaxHeight="500" MaxWidth="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        xmlns:local="clr-namespace:Tesis_Project.Models.Domains"
+        >
+
+    <!-- Place the resources here, outside of the main content StackPanel -->
+    <Window.Resources>
+        <core:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <DataTemplate x:Key="IntervalDomainTemplate">
+       
+        </DataTemplate>
+
+        <DataTemplate x:Key="LinguisticDomainTemplate">
+            <StackPanel>
+                <TextBlock Text="Nuevo Término:" />
+                <DockPanel>
+                    <TextBox  Text="{Binding DataContext.TextField_TerminoLinguistico, ValidatesOnNotifyDataErrors=True, RelativeSource={RelativeSource AncestorType=Window}}" Width="245" />
+                    <Button Content="+" Command="{Binding DataContext.AddTerminoLinguisticoCommand , RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource SecondaryButtonStyle}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Width="40"/>
+                </DockPanel>
+                <TextBlock Margin="0,10" Text="Términos Lingüísticos:" />
+                <ListBox ItemsSource="{Binding DataContext.TerminosLinguisticos , RelativeSource={RelativeSource AncestorType=Window}}" Height="100" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RealDomainTemplate">
+           
+        </DataTemplate>
+    </Window.Resources>
+
+    <Border CornerRadius="25" Background="White">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Title -->
+                <RowDefinition Height="*"/>
+                <!-- Content -->
+                <RowDefinition Height="Auto"/>
+                <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title -->
+            <TextBlock Text="{Binding ModalTitle}" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+
+            <!-- Content section in the first column -->
+            <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Nombre:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBox x:Name="NameField" Text="{Binding LabelName}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="290"/>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ModelType}" Value="domainModel">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <ComboBox 
+                        ItemsSource="{Binding aviableDomains}" 
+                        SelectedItem="{Binding SelectedDomain}"
+                        MinWidth="100" HorizontalAlignment="Left" Margin="0,0,0,20"/>
+                        <ContentControl Width="290">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource IntervalDomainTemplate}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedDomain}" Value="Dominio Intervalar">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource IntervalDomainTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedDomain}" Value="Dominio Lingüístico">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource LinguisticDomainTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedDomain}" Value="Dominio Númerico">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource RealDomainTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </StackPanel>
+
+
+                    <TextBlock Text="Peso:" FontWeight="SemiBold" Margin="0,0,0,5" Visibility="{Binding IsNotAddDomain, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <TextBox x:Name="WeightField" Text="{Binding WeightText}" Visibility="{Binding IsNotAddDomain, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Left" Margin="0,0,0,10" Width="290"/>
+                    
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Cartesian Chart in the second column beside the form -->
+            <lvc:CartesianChart Grid.Row="1" Grid.Column="1" Series="{Binding Series}" Visibility="{Binding IsAddDomain, Converter={StaticResource BoolToVisibilityConverter}}" Height="200" Margin="10,0,0,0"/>
+
+            <!-- Buttons positioned at the bottom-right corner -->
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Agregar" Command="{Binding SaveCommand}" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,10,0" />
+                <Button Content="Cancelar" Command="{Binding CancelCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</Window>

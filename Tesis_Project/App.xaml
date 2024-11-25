@@ -1,0 +1,28 @@
+﻿<Application x:Class="Tesis_Project.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Tesis_Project"
+             xmlns:viewModel="clr-namespace:Tesis_Project.ViewModels" 
+             xmlns:views="clr-namespace:Tesis_Project.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="DeepOrange" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="Resources/styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type TypeName=viewModel:DefinirMarcoViewModel}">
+                <views:DefinirMarcoView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=viewModel:GatheringViewModel}">
+                <views:GatheringView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=viewModel:RankingViewModel}">
+                <views:RankingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=viewModel:AggregationViewModel}">
+                <views:AggregationView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

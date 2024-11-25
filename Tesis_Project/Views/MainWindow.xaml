@@ -1,0 +1,60 @@
+﻿<Window x:Class="Tesis_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tesis_Project"
+        xmlns:views="clr-namespace:Tesis_Project.Views"
+        xmlns:viewModels="clr-namespace:Tesis_Project.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Background="Transparent"
+        Style="{StaticResource MaterialDesignWindow}"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        Height="660" Width="1080"
+        >
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <!-- Row for Menu Bar -->
+            <RowDefinition Height="Auto"/>
+            <!-- Main Content Area -->
+            <RowDefinition Height="*"/>
+            <!-- Row for Bottom Buttons -->
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu Bar -->
+            <Menu Grid.Row="0" Background="WhiteSmoke" Foreground="Black">
+                <MenuItem Background="WhiteSmoke" Header="Archivo"  Height="23">
+                    <MenuItem Background="WhiteSmoke" Header="Nuevo Proyecto" Command="{Binding NuevoProyectoCommand}"/>
+                    <MenuItem Background="WhiteSmoke" Header="Guardar Proyecto" Command="{Binding GuardarProyectoCommand}"/>
+                    <MenuItem Background="WhiteSmoke" Header="Cargar Proyecto" Command="{Binding CargarProyectoCommand}"/>
+                <Separator/>
+                    <MenuItem Background="WhiteSmoke" Header="Cerrar Aplicación" Command="{Binding CerrarAplicacionCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Content Control -->
+        <ContentControl Grid.Row="1" Content="{Binding NavigationService.CurrentView}"/>
+
+        <!--<UniformGrid Grid.Row="2" Columns="2" VerticalAlignment="Center">
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" Height="30" Margin="10,0,0,0" Style="{DynamicResource MaterialDesignRaisedLightButton}">
+                <materialDesign:PackIcon Kind="ChevronDoubleLeft" Foreground="White" VerticalAlignment="Center" Height="25" Width="30"/>
+            </Button>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Margin="0,0,10,0" Style="{DynamicResource MaterialDesignRaisedLightButton}">
+                <materialDesign:PackIcon Kind="ChevronDoubleRight" Foreground="White" VerticalAlignment="Center" Height="25" Width="30"/>
+            </Button>
+        </UniformGrid>-->
+
+        <!-- Botones de Navegacion -->
+        <UniformGrid Grid.Row="3" Columns="4" VerticalAlignment="Bottom">
+            <Button Content="Definir Marco"   Command="{Binding NavigateDefinirMarcoCommand}"/>
+            <Button Content="Evaluar Preferencias" Command="{Binding NavigateGatheringCommand}"/>
+            <Button Content="Agregación"  Command="{Binding NavigateAggregationCommand}"/>
+            <Button Content="Ranking" IsEnabled="{Binding CanNavigateToRanking}" Command="{Binding NavigateRankingCommand}"/>
+        </UniformGrid>
+    </Grid>
+</Window>
